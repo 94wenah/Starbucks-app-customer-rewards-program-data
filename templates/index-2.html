@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Starbucks app customer rewards program data</title>
+
+    <!-- Custom fonts for this template-->
+    
+    <link href="{{ url_for('static', filename='dist/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{url_for('static', filename='dist/css/sb-admin-2.min.css' )}}" rel="stylesheet" />
+
+
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Admin </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('index') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('analysis') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Clusters</span>
+                </a>
+            </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+
+                            <!-- Dropdown - Messages -->
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Debbie Hsu</span>
+                                <img class="img-profile rounded-circle" src="{{ url_for('static', filename='dist/assets/img/undraw_profile.svg') }}">
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Customer Segmentation</h1>
+ 
+                    </div>
+
+                        
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Calculation of Events -->
+                        <div class="col-xl-8 col-lg-7 mx-auto">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">The Elbow Method</h6>
+                                    <div class="dropdown no-arrow">
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="elbowChart" style="max-width: 100%; max-height: 100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 右側 Insights -->
+                        <div class="col-xl-4 col-lg-5 d-flex align-items-stretch">
+                            <div class="card shadow mb-4 w-100">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">💡Insights</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p>1. silhouette_score: 0.27很低，但使用 money_spent 和 num_viewed 繪製時可以識別聚類。</p>
+                                    <p>2. 當使用 K-Means 聚類分析給出的標籤作為目標時，兩種分類方法都實現了較高的測試精度。這表明 K 均值聚類為每個簇識別的模式確實存在，並且足夠清晰，可以透過兩種分類演算法捕獲超過 98% 的樣本。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" style="width: 100%; padding: 0; margin: 0;">
+                        <div class="col-12" style="padding: 0; margin: 0;">
+                            <div class="card shadow mb-4" style="width: 100%; height: 50vh;"> <!-- 高度限制為 50% 視窗高度 -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">
+                                        Customer Segmentation Based on Money Spent and Offers Viewed
+                                    </h6>
+                                </div>
+                                <div class="card-body" style="padding: 0;"> <!-- 去除邊距 -->
+                                    <div class="chart-area" style="width: 100%; height: 100%;">
+                                        <canvas id="scatterChart" style="width: 100%; height: 100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Customer Distribution Section -->
+<!-- 主容器 -->
+<div class="container-fluid" style="width: 100%; padding: 0; margin: 0;">
+    <!-- 第一塊：Customer Distribution -->
+    <div class="row" style="margin: 0; padding: 0;">
+        <div class="col-12" style="padding: 0; margin-bottom: 20px;"> <!-- 去除邊界 -->
+            <div class="card shadow mb-4" style="width: 100%;">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Customer Distribution</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Cluster 1:Regulars<span class="float-right">27.4%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar" style="width: 27.4%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Cluster 3: Offer-Viewers<span class="float-right">23.5%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 23.5%" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Cluster 0: Low-Engagers<span class="float-right">19.2%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 19.2%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Cluster 4:Most-Valuables<span class="float-right">18.3%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 18.3%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Cluster 2:High-Potentials<span class="float-right">11.6%</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 11.6%" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+                    
+</div>
+
+<div class="row" style="width: 100%; margin: 0; padding: 0;"> <!-- 滿版寬度 -->
+    <div class="col-12" style="padding: 0;"> <!-- 修改為 col-12 滿版 -->
+        <div class="card shadow mb-4" style="width: 100%;"> <!-- 確保寬度滿版 -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Cluster-wise Distribution of Offers Viewed and Money Spent
+                </h6>
+            </div>
+    
+<!-- 圖表容器 -->
+<div class="container-fluid" style="width: 100%; padding: 0; margin: 0;">
+    <div class="row" style="margin: 0;">
+        <!-- Cluster 0 -->
+        <div class="col-md-6 mb-4" style="padding: 0;">
+            <div class="chart-box" style="width: 100%; height: 40vh; padding: 10px;">
+                <canvas id="chart0" style="width: 100%; height: 100%;"></canvas>
+                <p><b>Cluster 0:</b> 低參與度的客戶(Low-Engagers)，想要改變這群客戶必須投入更多行銷資源。</p>
+            </div>
+        </div>
+        <!-- Cluster 1 -->
+        <div class="col-md-6 mb-4" style="padding: 0;">
+            <div class="chart-box" style="width: 100%; height: 40vh; padding: 10px;">
+                <canvas id="chart1" style="width: 100%; height: 100%;"></canvas>
+                <p><b>Cluster 1:</b> 常客(Regulars)，免費或以折扣價嘗試高價產品，提高他們的平均購買單價。</p>
+            </div>
+        </div>
+        <!-- Cluster 2 -->
+        <div class="col-md-6 mb-4" style="padding: 0;">
+            <div class="chart-box" style="width: 100%; height: 40vh; padding: 10px;">
+                <canvas id="chart2" style="width: 100%; height: 100%;"></canvas>
+                <p><b>Cluster 2:</b> 高潛力客(High-Potentials)，對優惠的敏感度比較高，發送更多的優惠，以促使更多地購買，從而增強他們的黏著性。</p>
+            </div>
+        </div>
+        <!-- Cluster 3 -->
+        <div class="col-md-6 mb-4" style="padding: 0;">
+            <div class="chart-box" style="width: 100%; height: 40vh; padding: 10px;">
+                <canvas id="chart3" style="width: 100%; height: 100%;"></canvas>
+                <p><b>Cluster 3:</b> 喜愛查看優惠的客戶(Offer-Viewers)，發送更多各種產品的優惠訊息，以吸引他們購物。</p>
+            </div>
+        </div>
+        <!-- Cluster 4 -->
+        <div class="col-md-12 mb-4" style="padding: 0;">
+            <div class="chart-box" style="width: 100%; height: 40vh; padding: 10px;">
+                <canvas id="chart4" style="width: 100%; height: 100%;"></canvas>
+                <p><b>Cluster 4:</b> 最有價值客戶 (MVC) ，公司應盡力留住這些客戶，並以其較高的平均購買價值吸引他們更多的購買。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+<div class="container my-auto">
+<div class="copyright text-center my-auto">
+    <span>Copyright &copy; Your Website 2021</span>
+</div>
+</div>
+</footer>
+
+
+    <!-- Bootstrap core JavaScript-->
+ 
+    <script src="{{ url_for('static', filename='dist/vendor/jquery/jquery.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+
+    <!-- Core plugin JavaScript-->
+
+    <script src="{{ url_for('static', filename='dist/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{url_for('static', filename='dist/js/sb-admin-2.js') }}"></script>
+
+    <!-- Page level plugins -->
+
+
+
+    <!-- Page level custom scripts -->
+    <script src="{{url_for('static', filename='dist/assets/demo/chart-area-demo.js') }}"></script>
+    <script src="{{url_for('static', filename='dist/assets/demo/chart-bar-demo.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js 核心 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- DataLabels 插件 -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<!-- DataTables CSS -->
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<!-- DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<!-- 加載數據並繪製圖表 -->
+<script>
+    // 從 Flask API 讀取資料
+    fetch('/analysis/ElbowMethod')
+        .then(response => response.json())
+        .then(data => {
+            // 解析 Elbow Method 資料
+            const elbowClusters = data.elbow_method.clusters;
+            const wcss = data.elbow_method.wcss;
+
+            // 繪製 Elbow Method 圖表
+            const ctxElbow = document.getElementById('elbowChart').getContext('2d');
+            new Chart(ctxElbow, {
+                type: 'line',
+                data: {
+                    labels: elbowClusters,
+                    datasets: [{
+                        label: '',
+                        data: wcss,
+                        borderColor: 'blue',
+                        borderWidth: 2,
+                        fill: false,
+                        pointRadius: 5,
+                        pointBackgroundColor: 'blue'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Number of Clusters' } },
+                        y: { title: { display: true, text: 'WCSS' } }
+                    }
+                }
+            });
+
+            // 解析 Silhouette Method 資料
+            const silhouetteClusters = data.silhouette_method.clusters;
+            const silScore = data.silhouette_method.sil_score;
+
+            // 繪製 Silhouette Method 圖表
+            const ctxSilhouette = document.getElementById('silhouetteChart').getContext('2d');
+            new Chart(ctxSilhouette, {
+                type: 'line',
+                data: {
+                    labels: silhouetteClusters,
+                    datasets: [{
+                        label: 'Silhouette Score',
+                        data: silScore,
+                        borderColor: 'green',
+                        borderWidth: 2,
+                        fill: false,
+                        pointRadius: 5,
+                        pointBackgroundColor: 'green'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        title: { display: true, text: 'The Silhouette Method' }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Number of Clusters' } },
+                        y: { title: { display: true, text: 'Silhouette Score' } }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error loading data:', error));
+        fetch('/analysis/ElbowMethod_2')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('scatterChart').getContext('2d');
+            const scatterData = data.scatter_data;
+    
+            const datasets = scatterData.map(cluster => ({
+                label: cluster.label,
+                data: cluster.x.map((x, idx) => ({ x: x, y: cluster.y[idx] })), 
+                backgroundColor: cluster.color,
+                pointHoverRadius: 7
+            }));
+    
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: datasets
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                           
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Offers Viewed'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Money Spent'
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error loading data:', error));
+        fetch('/analysis/clusterResult')
+        .then(response => response.json())
+        .then(data => {
+            const colors = ['red', 'blue', 'orange', 'green', 'purple'];
+            for (let i = 0; i < 5; i++) {
+                const ctx = document.getElementById('chart' + i).getContext('2d');
+                const clusterData = data.scatter_data[i];
+                const meanY = clusterData.y.reduce((a, b) => a + b, 0) / clusterData.y.length; // 平均值
+
+                new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: `Cluster ${i}`,
+                            data: clusterData.x.map((xVal, index) => ({
+                                x: xVal, 
+                                y: clusterData.y[index]
+                            })),
+                            backgroundColor: colors[i],
+                            pointRadius: 3,
+                            pointHoverRadius: 5
+                        }, {
+                            type: 'line',
+                            label: `Mean Line`,
+                            data: clusterData.x.map(xVal => ({
+                                x: xVal,
+                                y: meanY
+                            })),
+                            borderColor: colors[i],
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: `Cluster ${i}`
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'num_viewed'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'money_spent'
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 480
+                            }
+                        }
+                    }
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+    
+
+</script>
+</body>
+</html>
+
+

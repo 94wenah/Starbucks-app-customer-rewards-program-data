@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Starbucks app customer rewards program data</title>
+
+    <!-- Custom fonts for this template-->
+    
+    <link href="{{ url_for('static', filename='dist/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{url_for('static', filename='dist/css/sb-admin-2.min.css' )}}" rel="stylesheet" />
+
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Admin </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('index') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('analysis') }}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Clusters</span>
+                </a>
+            </li>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+
+                            <!-- Dropdown - Messages -->
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Debbie Hsu</span>
+                                <img class="img-profile rounded-circle" src="{{ url_for('static', filename='dist/assets/img/undraw_profile.svg') }}">
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+ 
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Events</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">306,534</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Customers</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">14,825</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Customers Age(Avg)
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">54y</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Customers Income(Avg)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$65,404</div>
+                                        </div>
+                                        <div class="col-auto">
+                                
+                                            <i class="fas fa-wallet fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Calculation of Events -->
+                        <div class="col-xl-8 col-lg-7 mx-auto">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Calculation of Events</h6>
+                                    <div class="dropdown no-arrow">
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart" style="max-width: 100%; max-height: 100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Proportion of Events -->
+                        <div class="col-xl-4 col-lg-5 d-flex justify-content-center align-items-stretch">
+                            <div class="card shadow mb-4 w-100">
+                                <!-- Card Header -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Proportion of Events</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body text-center">
+                                    <div class="chart-pie d-flex justify-content-center">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle" style="color: #4e73df;"></i> Transaction
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle" style="color: #f6c23e;"></i> Offer Received
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle" style="color: #1cc88a;"></i> Offer Viewed
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle" style="color: #e74a3b;"></i> Offer Completed
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- 左側圖表 -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Events Occurrence Hourly</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart-2" style="max-width: 100%; max-height: 100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- 右側 Insights -->
+                        <div class="col-xl-4 col-lg-5 d-flex align-items-stretch">
+                            <div class="card shadow mb-4 w-100">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">💡Insights</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p>1. 報價完成與報價查看具有高度相關，每個報價查看高峰之後，會有一個報價完成的高峰。</p>
+                                    <p>2. 當數據（從幾小時）聚合到幾天時，優惠查看和優惠完成的峰值位置高度對齊，表明很大一部分客戶在查看的同一天完成了優惠。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Events Occurrence Daily -->
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-7 mx-auto">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Events Occurrence Daily</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart-3" style="max-width: 100%; max-height: 100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Development Approach -->
+                        <div class="col-xl-4 col-lg-5 d-flex align-items-stretch">
+                            <div class="card shadow mb-4 w-100">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">💡Insights</h6>
+                                </div>
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                    <p>每次觀看高峰後，報價完成速度很快（以小時為單位）達到峰值，而交易量不斷增加，大約兩天後達到峰值。這表明優惠不僅帶來了顧客直接使用優惠的購買量（享受折扣或其他優惠），而且有助於形成顧客的購買習慣（儘管個別優惠的持續時間較短）。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Data Table Section -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Transaction Event Portfolio</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="dataTable" class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr id="table-header">
+                        <!-- 欄位名稱會動態載入 -->
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- 資料會動態載入 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+                    <!-- Content Row -->
+<div class="row">
+
+    <!-- Content Column -->
+    <div class="col-lg-12 mb-4">
+
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Overall Completion Rate %</h6>
+                <h7 class="m-0 text-primary">對於完成率最高的 5 個優惠，六成屬於「折扣」類型。這表明客戶更喜歡"折扣"類型而不是"買一送一"。</h7>
+
+            </div>
+            <div class="card-body">
+                <!-- Group 1 -->
+                <h4 class="small font-weight-bold">F（Offer Type:Discount）<span class="float-right">70%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">E（Offer Type:Discount）<span class="float-right">67%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: 67%" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">B（Offer Type:Bogo）<span class="float-right">57%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">A（Offer Type:Bogo）<span class="float-right">57%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">G（Offer Type:Discount）<span class="float-right">53%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 53%" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+                <!-- Group 2 -->
+                <h4 class="small font-weight-bold">C（Offer Type:Bogo）<span class="float-right">48%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 48%" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">H（Offer Type:Discount）<span class="float-right">45%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">D（Offer Type:Bogo）<span class="float-right">43%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 43%" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">I（Offer Type:Informational）<span class="float-right">0%</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-light" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">J（Offer Type:Informational）<span class="float-right">0%</span></h4>
+                <div class="progress">
+                    <div class="progress-bar bg-light" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+   
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+
+    <!-- Bootstrap core JavaScript-->
+ 
+    <script src="{{ url_for('static', filename='dist/vendor/jquery/jquery.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+
+    <!-- Core plugin JavaScript-->
+
+    <script src="{{ url_for('static', filename='dist/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{url_for('static', filename='dist/js/sb-admin-2.js') }}"></script>
+
+    <!-- Page level plugins -->
+
+
+
+    <!-- Page level custom scripts -->
+    <script src="{{url_for('static', filename='dist/assets/demo/chart-area-demo.js') }}"></script>
+    <script src="{{url_for('static', filename='dist/assets/demo/chart-bar-demo.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js 核心 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- DataLabels 插件 -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<!-- DataTables CSS -->
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<!-- DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 註冊 DataLabels 插件
+        Chart.register(ChartDataLabels);
+    
+        // Fetch Line Chart Data
+        fetch('/calculationofEvents')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Fetched data:', data); // 除錯用
+               
+                // 確保資料格式正確
+                if (!data || Object.keys(data).length === 0) {
+                    throw new Error('No data received or invalid format');
+                }
+            
+                const ctx = document.getElementById('myAreaChart').getContext('2d');
+                new Chart(ctx,{
+                    type:'bar',
+                    data:{
+                        labels:data.labels,
+                        datasets:[{
+                            label: 'Event Counts',
+                            data: data.values,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            datalabels: {
+                                anchor: 'end',
+                                align: 'top',
+                                formatter: (value) => value,
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+    
+            .catch(error => console.error('Error fetching line chart data:', error));
+    
+        // Fetch Pie Chart Data
+        fetch('/ProportionofEvents')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched data:', data); // 除錯用
+    
+                // 處理百分比數據
+                const percentages = data.percentages.map(p => isNaN(p) ? 0 : p);
+    
+                // 繪製圓餅圖
+                const ctx = document.getElementById('myPieChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: '',
+                        datasets: [{
+                            data: percentages,
+                            backgroundColor: ['#4e73df', '#f6c23e', '#1cc88a', '#e74a3b'],
+                            hoverBackgroundColor: ['#2e59d9', '#f4b619', '#17a673', '#e02d1b']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { boxWidth: 15, padding: 20 }
+                            },
+                            datalabels: {
+                                formatter: (value, context) => `${value}%`,
+                                color: '#fff',
+                                font: { size: 14, weight: 'bold' }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${value}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching pie chart data:', error));
+            fetch('/EventsOccurrence')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 確保資料存在並格式正確
+            if (!data || !data.hourly || !data.hourly.hours || !data.daily || !data.daily.days) {
+                throw new Error('Invalid data format or missing keys');
+            }
+
+            // 1. 小時圖表
+            const ctxHourly = document.getElementById('myAreaChart-2').getContext('2d');
+            new Chart(ctxHourly, {
+                type: 'line',
+                data: {
+                    labels: data.hourly.hours,
+                    datasets: [
+                        {
+                            label: 'Offer Viewed',
+                            data: data.hourly.viewed,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            pointRadius: 0,
+                            borderWidth: 1.5,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Offer Completed',
+                            data: data.hourly.completed,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            pointRadius: 0,
+                            borderWidth: 1.5,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Transactions',
+                            data: data.hourly.transaction,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            pointRadius: 0,
+                            borderWidth: 1.5,
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 20,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            enabled: true
+                        },                        datalabels: {
+                            display: false // 禁用數據標籤
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Hours',
+                                font: { size: 14 }
+                            },
+                            ticks: {
+                                stepSize: 100, // 每 100 小時顯示一個刻度
+                                maxTicksLimit: 10 // 限制最多顯示 10 個刻度
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Events Count',
+                                font: { size: 14 }
+                            },
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(200, 200, 200, 0.3)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 2. 每日圖表
+            const ctxDaily = document.getElementById('myAreaChart-3').getContext('2d');
+            new Chart(ctxDaily, {
+                type: 'line',
+                data: {
+                    labels: data.daily.days,
+                    datasets: [
+                        {
+                            label: 'Offer Viewed',
+                            data: data.daily.viewed,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            pointRadius: 0,
+                            borderWidth: 1.5,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Offer Completed',
+                            data: data.daily.completed,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            pointRadius: 0,
+                            borderWidth: 1.5,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Transactions',
+                            data: data.daily.transaction,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            pointRadius: 0,
+                            borderWidth: 1.5,
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 20,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            enabled: true
+                        },datalabels: {
+                            display: false // 禁用數據標籤
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Days',
+                                font: { size: 14 }
+                            },
+                            ticks: {
+                                stepSize: 5, // 每 5 天顯示一個刻度
+                                maxTicksLimit: 10
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Events Count',
+                                font: { size: 14 }
+                            },
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(200, 200, 200, 0.3)'
+                            }
+                        }
+                    }
+                }
+            });
+
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            alert('Failed to load data. Please check the server or data source.');
+        });
+        fetch('/datatable')
+        .then(response => response.json())
+        .then(data => {
+            const headers = ['person', 'event', 'offer_alias', 'reward', 'channels',
+                             'difficulty', 'duration', 'offer_type', 'time', 'days_since_start', 'dict_key'];
+    
+            // 動態生成表頭
+            let headerRow = headers.map(header => `<th>${header}</th>`).join('');
+            document.getElementById('table-header').innerHTML = headerRow;
+    
+            // 動態生成表格資料
+            let tableBody = data.map(row => {
+                let rowHTML = headers.map(header => `<td>${row[header]}</td>`).join('');
+                return `<tr>${rowHTML}</tr>`;
+            }).join('');
+            document.getElementById('table-body').innerHTML = tableBody;
+    
+            // 初始化 DataTable
+            $('#dataTable').DataTable();
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
+
+</script>
+</body>
+</html>

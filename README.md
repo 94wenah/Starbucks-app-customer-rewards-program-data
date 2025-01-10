@@ -1,8 +1,8 @@
 
-<img width="1510" alt="截圖 2025-01-11 上午12 42 50" src="https://github.com/user-attachments/assets/2b399054-fd91-4c85-8057-bd25427d828c" />
-
 ## 專案背景與說明
-![截圖 2025-01-07 下午11 58 49](https://github.com/user-attachments/assets/a29828bd-767b-468a-824a-5dde836cc3bd)
+<img width="1510" alt="截圖 2025-01-11 上午12 42 50" src="https://github.com/user-attachments/assets/2b399054-fd91-4c85-8057-bd25427d828c" />
+研究分析星巴克為期一個月的行銷活動，期間消費者收到了各式優惠，利用數據模擬活動期間的客戶的人口統計以及交易活動狀態。
+
 
 ### 目的
 
